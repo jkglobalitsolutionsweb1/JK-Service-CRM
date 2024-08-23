@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Service Billing Software</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 1em;
+    text-align: center;
+}
+
+main {
+    padding: 1em;
+}
+
+section {
+    margin-bottom: 2em;
+}
+
+form {
+    margin-bottom: 1em;
+}
+
+label {
+    display: block;
+    margin: 0.5em 0 0.2em;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea {
+    width: 100%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 0.7em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#call-list, #job-list, #schedule-list, #completion-list, #invoice-list, #payment-list, #reconciliation-list {
+    margin-top: 1em;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HVAC Service Billing Software</h1>
+    </header>
+    <main>
+        <section id="client-calls">
+            <h2>Client Calls</h2>
+            <form id="call-form">
+                <label for="client-name">Client Name:</label>
+                <input type="text" id="client-name" required>
+                <label for="call-details">Call Details:</label>
+                <textarea id="call-details" required></textarea>
+                <button type="submit">Submit Call</button>
+            </form>
+            <div id="call-list"></div>
+        </section>
+
+        <section id="jobs">
+            <h2>Jobs</h2>
+            <form id="job-form">
+                <label for="client-id">Client ID:</label>
+                <input type="text" id="client-id" required>
+                <label for="job-description">Job Description:</label>
+                <textarea id="job-description" required></textarea>
+                <button type="submit">Create Job</button>
+            </form>
+            <div id="job-list"></div>
+        </section>
+
+        <section id="scheduling">
+            <h2>Schedule Job</h2>
+            <form id="schedule-form">
+                <label for="job-id">Job ID:</label>
+                <input type="text" id="job-id" required>
+                <label for="schedule-date">Schedule Date:</label>
+                <input type="date" id="schedule-date" required>
+                <button type="submit">Schedule Job</button>
+            </form>
+            <div id="schedule-list"></div>
+        </section>
+
+        <section id="completion">
+            <h2>Complete Job</h2>
+            <form id="completion-form">
+                <label for="complete-job-id">Job ID:</label>
+                <input type="text" id="complete-job-id" required>
+                <label for="completion-notes">Completion Notes:</label>
+                <textarea id="completion-notes"></textarea>
+                <button type="submit">Complete Job</button>
+            </form>
+            <div id="completion-list"></div>
+        </section>
+
+        <section id="invoice">
+            <h2>Create Invoice</h2>
+            <form id="invoice-form">
+                <label for="invoice-job-id">Job ID:</label>
+                <input type="text" id="invoice-job-id" required>
+                <label for="invoice-amount">Amount:</label>
+                <input type="number" id="invoice-amount" required>
+                <button type="submit">Create Invoice</button>
+            </form>
+            <div id="invoice-list"></div>
+        </section>
+
+        <section id="payment">
+            <h2>Process Payment</h2>
+            <form id="payment-form">
+                <label for="payment-invoice-id">Invoice ID:</label>
+                <input type="text" id="payment-invoice-id" required>
+                <label for="payment-amount">Amount:</label>
+                <input type="number" id="payment-amount" required>
+                <button type="submit">Process Payment</button>
+            </form>
+            <div id="payment-list"></div>
+        </section>
+
+        <section id="reconciliation">
+            <h2>Reconciliation</h2>
+            <form id="reconciliation-form">
+                <label for="reconciliation-date">Date:</label>
+                <input type="date" id="reconciliation-date" required>
+                <button type="submit">Reconcile</button>
+            </form>
+            <div id="reconciliation-list"></div>
+        </section>
+    </main>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+    const callForm = document.getElementById('call-form');
+    const jobForm = document.getElementById('job-form');
+    const scheduleForm = document.getElementById('schedule-form');
+    const completionForm = document.getElementById('completion-form');
+    const invoiceForm = document.getElementById('invoice-form');
+    const paymentForm = document.getElementById('payment-form');
+    const reconciliationForm = document.getElementById('reconciliation-form');
+
+    const callList = document.getElementById('call-list');
+    const jobList = document.getElementById('job-list');
+    const scheduleList = document.getElementById('schedule-list');
+    const completionList = document.getElementById('completion-list');
+    const invoiceList = document.getElementById('invoice-list');
+    const paymentList = document.getElementById('payment-list');
+    const reconciliationList = document.getElementById('reconciliation-list');
+
+    // Example data storage
+    const calls = [];
+    const jobs = [];
+    const schedules = [];
+    const completions = [];
+    const invoices = [];
+    const payments = [];
+    const reconciliations = [];
+
+    function updateList(listElement, items) {
+        listElement.innerHTML = '';
+        items.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = JSON.stringify(item);
+            listElement.appendChild(div);
+        });
+    }
+
+    callForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const clientName = document.getElementById('client-name').value;
+        const callDetails = document.getElementById('call-details').value;
+        const call = { clientName, callDetails };
+        calls.push(call);
+        updateList(callList, calls);
+        callForm.reset();
+    });
+
+    jobForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const clientId = document.getElementById('client-id').value;
+        const jobDescription = document.getElementById('job-description').value;
+        const job = { clientId, jobDescription };
+        jobs.push(job);
+        updateList(jobList, jobs);
+        jobForm.reset();
+    });
+
+    scheduleForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const jobId = document.getElementById('job-id').value;
+        const scheduleDate = document.getElementById('schedule-date').value;
+        const schedule = { jobId, scheduleDate };
+        schedules.push(schedule);
+        updateList(scheduleList, schedules);
+        scheduleForm.reset();
+    });
+
+    completionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const jobId = document.getElementById('complete-job-id').value;
+        const completionNotes = document.getElementById('completion-notes').value;
+        const completion = { jobId, completionNotes };
+        completions.push(completion);
+        updateList(completionList, completions);
+        completionForm.reset();
+    });
+
+    invoiceForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const jobId = document.getElementById('invoice-job-id').value;
+        const amount = document.getElementById('invoice-amount').value;
+        const invoice = { jobId, amount };
+        invoices.push(invoice);
+        updateList(invoiceList, invoices);
+        invoiceForm.reset();
+    });
+
+    paymentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const invoiceId = document.getElementById('payment-invoice-id').value;
+        const amount = document.getElementById('payment-amount').value;
+        const payment = { invoiceId, amount };
+        payments.push(payment);
+        updateList(paymentList, payments);
+        paymentForm.reset();
+    });
+
+    reconciliationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const date = document.getElementById('reconciliation-date').value;
+        const reconciliation = { date };
+        reconciliations.push(reconciliation);
+        updateList(reconciliationList, reconciliations);
+        reconciliationForm.reset();
+    });
+});
+
+    </script>
+</body>
+</html>
