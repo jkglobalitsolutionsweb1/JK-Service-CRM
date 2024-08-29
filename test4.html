@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap Column Toggle</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .content {
+            display: none;
+            /* Hide content by default */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid ">
+        <div class="row">
+            <div style="background-color: red; height: 150vh;" class="col-3 p-4">
+                <!-- Buttons to toggle content -->
+
+                <div class="mt-4">
+                    <h1 style="color: white;" class="fw-bolder text-end">JK Service CRM</h1>
+
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-5 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class="btn-block"
+                        onclick="showContent('dashboard')"><span style="font-weight: 700;">Dashboard</span> </button>
+
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('clientCalls')"><span style="font-weight: 700;">Client Calls</span>
+                    </button>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('jobcreation')"> <span style="font-weight: 700;">Job Creation</span>
+                    </button>
+                </div>
+
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <h6>Job Scheduling</h6>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <h6>Invoices</h6>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <h6>Payments</h6>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <h6>Reconsilation</h6>
+                </div>
+
+                <div style="background-color: white; border-radius: 10px; margin-top: 150px;" class="box p-3  mb-4">
+                    <a style="text-decoration: none; color: black;" href="index.html">
+                        <h6>Sign Out</h6>
+                    </a>
+                </div>
+            </div>
+            <div style="background-color: red; height: 150vh;" class="col-9">
+                <!-- dashboard Content start -->
+                <div style="background-color: red;" id="dashboard" class="content">
+                    <div style="background-color: red;" class="">
+                        <div class="dashboard-content">
+                            <h1 class="mt-2" style="color: white;">Dashboard</h1>
+
+                            <section class="metrics mt-5">
+
+                                <div class="metric">
+                                    <h3>New Clients</h3>
+                                    <p id="new-clients">Loading...</p>
+                                </div>
+                                <div class="metric">
+                                    <h3>Upcoming Jobs</h3>
+                                    <p id="upcoming-jobs">Loading...</p>
+                                </div>
+                                <div class="metric">
+                                    <h3>Pending Invoices</h3>
+                                    <p id="pending-invoices">Loading...</p>
+                                </div>
+                                <div class="metric">
+                                    <h3>Total Payments</h3>
+                                    <p id="total-payments">Loading...</p>
+                                </div>
+                            </section>
+
+                            <section class="charts">
+                                <div class="chart">
+                                    <h3>Client Growth</h3>
+                                    <canvas id="client-growth-chart"></canvas>
+                                </div>
+                                <div class="chart">
+                                    <h3>Job Completion Status</h3>
+                                    <canvas id="job-status-chart"></canvas>
+                                </div>
+                            </section>
+
+                            <section class="notifications">
+                                <h3>Recent Notifications</h3>
+                                <ul>
+                                    <li><strong>Client X:</strong> New job scheduled.</li>
+                                    <li><strong>Invoice Y:</strong> Payment received.</li>
+                                    <li><strong>Job Z:</strong> Completed successfully.</li>
+                                </ul>
+                            </section>
+
+
+                        </div>
+                        <style>
+                            .dashboard-content {
+                                margin: 20px;
+                                padding: 20px;
+                                color: #333;
+                            }
+
+                            .metrics {
+                                display: flex;
+                                gap: 20px;
+                                flex-wrap: wrap;
+                            }
+
+                            .metric {
+                                background-color: #f9f9f9;
+                                padding: 20px;
+                                border-radius: 5px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                flex: 1;
+                                min-width: 200px;
+                                text-align: center;
+                            }
+
+                            .metric h3 {
+                                margin: 0 0 10px;
+                                font-size: 18px;
+                                color: #333;
+                            }
+
+                            .metric p {
+                                font-size: 24px;
+                                font-weight: bold;
+                                margin: 0;
+                                color: red;
+                                /* Red color for emphasis */
+                            }
+
+                            .charts {
+                                display: flex;
+                                gap: 20px;
+                                margin-top: 20px;
+                                flex-wrap: wrap;
+                            }
+
+                            .chart {
+                                background-color: #f9f9f9;
+                                padding: 20px;
+                                border-radius: 5px;
+                                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                                flex: 1;
+                                min-width: 300px;
+                                text-align: center;
+                            }
+
+                            .chart h3 {
+                                margin: 0 0 10px;
+                                font-size: 18px;
+                                color: #333;
+                            }
+
+                            .notifications {
+                                margin-top: 20px;
+                            }
+
+                            .notifications h3 {
+                                margin-bottom: 10px;
+                                font-size: 18px;
+                                color: #333;
+                            }
+
+                            .notifications ul {
+                                list-style-type: none;
+                                padding: 0;
+                            }
+
+                            .notifications ul li {
+                                background-color: #f9f9f9;
+                                padding: 10px;
+                                border: 1px solid #ddd;
+                                border-radius: 5px;
+                                margin-bottom: 5px;
+                            }
+                        </style>
+                        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', () => {
+                                // Simulate fetching data with static content
+                                const data = {
+                                    newClients: '45',
+                                    upcomingJobs: '12',
+                                    pendingInvoices: '$2,500',
+                                    totalPayments: '$15,000'
+                                };
+
+                                // Update the dashboard metrics with static data
+                                document.getElementById('new-clients').innerText = data.newClients;
+                                document.getElementById('upcoming-jobs').innerText = data.upcomingJobs;
+                                document.getElementById('pending-invoices').innerText = data.pendingInvoices;
+                                document.getElementById('total-payments').innerText = data.totalPayments;
+
+                                // Chart.js data and configuration
+                                const clientGrowthCtx = document.getElementById('client-growth-chart').getContext('2d');
+                                const jobStatusCtx = document.getElementById('job-status-chart').getContext('2d');
+
+                                new Chart(clientGrowthCtx, {
+                                    type: 'line',
+                                    data: {
+                                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                                        datasets: [{
+                                            label: 'New Clients',
+                                            data: [10, 15, 20, 25, 30, 35],
+                                            borderColor: 'red',
+                                            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        scales: {
+                                            x: {
+                                                beginAtZero: true
+                                            },
+                                            y: {
+                                                beginAtZero: true
+                                            }
+                                        }
+                                    }
+                                });
+
+                                new Chart(jobStatusCtx, {
+                                    type: 'pie',
+                                    data: {
+                                        labels: ['Completed', 'In Progress', 'Pending'],
+                                        datasets: [{
+                                            label: 'Job Status',
+                                            data: [50, 30, 20],
+                                            backgroundColor: [
+                                                'rgba(255, 99, 132, 0.2)',
+                                                'rgba(54, 162, 235, 0.2)',
+                                                'rgba(255, 206, 86, 0.2)'
+                                            ],
+                                            borderColor: [
+                                                'red',
+                                                'blue',
+                                                'yellow'
+                                            ],
+                                            borderWidth: 1
+                                        }]
+                                    },
+                                    options: {
+                                        responsive: true,
+                                        plugins: {
+                                            legend: {
+                                                position: 'top',
+                                            },
+                                            tooltip: {
+                                                callbacks: {
+                                                    label: function (tooltipItem) {
+                                                        return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+                <!-- dashboard Content end -->
+                <!-- client calls Content start -->
+                <div id="clientCalls" class="content">
+                    <style>
+                        .page-title {
+                            margin-top: 20px;
+                            margin-bottom: 20px;
+                        }
+
+                        .form-section,
+                        .table-section,
+                        .update-form-section {
+                            margin-bottom: 20px;
+                        }
+
+                        .hidden {
+                            display: none;
+                        }
+                    </style>
+                    <div class="container">
+                        <div class="page-title mt-5">
+                            <h1 class="fw-bolder" style="color: white;">Client Calls</h1>
+                        </div>
+
+                        <div style="background-color: white;border-radius: 10px;" class="form-section p-4">
+                            <h4 class="fw-bolder" style="color: black;">Add New Call</h4>
+                            <form id="addCallForm">
+                                <div class="mb-3">
+                                    <label style="color: black;" for="clientName" class="form-label">Client Name</label>
+                                    <input type="text" class="form-control" id="clientName" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label style="color: black;" for="callDate" class="form-label">Call Date</label>
+                                    <input type="date" class="form-control" id="callDate" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label style="color: black;" for="callNotes" class="form-label">Call Notes</label>
+                                    <textarea class="form-control" id="callNotes" rows="3" required></textarea>
+                                </div>
+                                <button style="background-color: red;border: none;" type="submit"
+                                    class="btn btn-primary">Add Call</button>
+                            </form>
+                        </div>
+
+                        <!-- Search/Filter Calls -->
+                        <div style="background-color: white;" class="mb-3 p-4 rounded">
+                            <h2 class="fw-bolder">Search/Filter Calls</h2>
+                            <input type="text" class="form-control" id="searchInput"
+                                placeholder="Search by client name or date">
+                        </div>
+
+                        <!-- Calls Table -->
+                        <div style="background-color: white;" class="table-section p-4 rounded">
+                            <h2 class="fw-bolder">Call Records</h2>
+                            <table class="table table-striped" id="callsTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Client Name</th>
+                                        <th>Call Date</th>
+                                        <th>Call Notes</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Dynamic rows will be added here -->
+                                </tbody>
+                            </table>
+                            <button style="background-color: red; color: white;" class="btn  mt-3"
+                                data-bs-toggle="modal" data-bs-target="#allCallsModal">View All Calls</button>
+                        </div>
+
+                        <!-- Add Call Modal -->
+                        <div class="modal fade" id="addCallModal" tabindex="-1" aria-labelledby="addCallModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="addCallModalLabel">Add New Call</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="addCallForm">
+                                            <div class="mb-3">
+                                                <label for="clientName" class="form-label">Client Name</label>
+                                                <input type="text" class="form-control" id="clientName" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="callDate" class="form-label">Call Date</label>
+                                                <input type="date" class="form-control" id="callDate" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="callNotes" class="form-label">Call Notes</label>
+                                                <textarea class="form-control" id="callNotes" rows="3"
+                                                    required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Call</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Update Call Modal -->
+                        <div class="modal fade" id="updateCallModal" tabindex="-1"
+                            aria-labelledby="updateCallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="updateCallModalLabel">Update Call</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="updateCallForm">
+                                            <input type="hidden" id="updateCallId">
+                                            <div class="mb-3">
+                                                <label for="updateClientName" class="form-label">Client Name</label>
+                                                <input type="text" class="form-control" id="updateClientName" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="updateCallDate" class="form-label">Call Date</label>
+                                                <input type="date" class="form-control" id="updateCallDate" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="updateCallNotes" class="form-label">Call Notes</label>
+                                                <textarea class="form-control" id="updateCallNotes" rows="3"
+                                                    required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Update Call</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- All Calls Modal -->
+                        <div class="modal fade" id="allCallsModal" tabindex="-1" aria-labelledby="allCallsModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="allCallsModalLabel">All Client Calls</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                        <style>
+                                            .btn-close {
+                                                width: 32px;
+                                                /* Adjust width as needed */
+                                                height: 32px;
+                                                /* Adjust height as needed */
+                                                background: none;
+                                                /* Remove background */
+                                                border: none;
+                                                /* Remove border */
+                                                position: relative;
+                                                /* Position relative for pseudo-elements */
+                                                cursor: pointer;
+                                                /* Pointer cursor on hover */
+                                            }
+
+                                            .btn-close::before,
+                                            .btn-close::after {
+                                                content: "";
+                                                /* Add content for X */
+                                                position: absolute;
+                                                /* Absolute positioning for centering */
+                                                top: 50%;
+                                                left: 50%;
+                                                width: 16px;
+                                                /* Adjust width of X lines */
+                                                height: 2px;
+                                                /* Adjust height of X lines */
+                                                background-color: red;
+                                                /* Color of the X */
+                                                transform: translate(-50%, -50%) rotate(45deg);
+                                                /* Center and rotate */
+                                            }
+
+                                            .btn-close::after {
+                                                transform: translate(-50%, -50%) rotate(-45deg);
+                                                /* Rotate in the opposite direction */
+                                            }
+                                        </style>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-striped" id="allCallsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Client Name</th>
+                                                    <th>Call Date</th>
+                                                    <th>Call Notes</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic rows will be added here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bootstrap Bundle with Popper -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+                    <script>
+                        let callsData = [
+                            { id: 1, clientName: 'John Doe', callDate: '2024-08-25', callNotes: 'Discussed project details' },
+                            { id: 2, clientName: 'Jane Smith', callDate: '2024-08-26', callNotes: 'Follow-up on contract' },
+                            { id: 3, clientName: 'Alice Johnson', callDate: '2024-08-27', callNotes: 'Initial consultation' },
+                            { id: 4, clientName: 'Bob Brown', callDate: '2024-08-28', callNotes: 'Project feedback' }
+                        ];
+
+                        function renderCallsTable(data) {
+                            const tableBody = document.querySelector('#callsTable tbody');
+                            tableBody.innerHTML = '';
+                            // Show only the first two records
+                            const recordsToShow = data.slice(0, 2);
+                            recordsToShow.forEach((call, index) => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${call.clientName}</td>
+                                    <td>${call.callDate}</td>
+                                    <td>${call.callNotes}</td>
+                                    <td>
+                                        <button class="btn btn-warning btn-sm" onclick="editCall(${call.id})">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteCall(${call.id})">Delete</button>
+                                    </td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        }
+
+                        document.getElementById('addCallForm').addEventListener('submit', function (event) {
+                            event.preventDefault();
+                            const newCall = {
+                                id: callsData.length + 1,
+                                clientName: document.getElementById('clientName').value,
+                                callDate: document.getElementById('callDate').value,
+                                callNotes: document.getElementById('callNotes').value
+                            };
+                            callsData.push(newCall);
+                            renderCallsTable(callsData);
+                            new bootstrap.Modal(document.getElementById('addCallModal')).hide();
+                            this.reset();
+                        });
+
+                        function editCall(id) {
+                            const call = callsData.find(call => call.id === id);
+                            if (call) {
+                                document.getElementById('updateCallId').value = call.id;
+                                document.getElementById('updateClientName').value = call.clientName;
+                                document.getElementById('updateCallDate').value = call.callDate;
+                                document.getElementById('updateCallNotes').value = call.callNotes;
+                                new bootstrap.Modal(document.getElementById('updateCallModal')).show();
+                            }
+                        }
+
+                        document.getElementById('updateCallForm').addEventListener('submit', function (event) {
+                            event.preventDefault();
+                            const id = parseInt(document.getElementById('updateCallId').value);
+                            const updatedCall = {
+                                id: id,
+                                clientName: document.getElementById('updateClientName').value,
+                                callDate: document.getElementById('updateCallDate').value,
+                                callNotes: document.getElementById('updateCallNotes').value
+                            };
+                            const index = callsData.findIndex(call => call.id === id);
+                            if (index > -1) {
+                                callsData[index] = updatedCall;
+                                renderCallsTable(callsData);
+                                new bootstrap.Modal(document.getElementById('updateCallModal')).hide();
+                            }
+                        });
+
+                        function deleteCall(id) {
+                            if (confirm('Are you sure you want to delete this call?')) {
+                                const index = callsData.findIndex(call => call.id === id);
+                                if (index > -1) {
+                                    callsData.splice(index, 1);
+                                    renderCallsTable(callsData);
+                                }
+                            }
+                        }
+
+                        document.getElementById('searchInput').addEventListener('input', function () {
+                            const query = this.value.toLowerCase();
+                            const filteredCalls = callsData.filter(call =>
+                                call.clientName.toLowerCase().includes(query) ||
+                                call.callDate.includes(query)
+                            );
+                            renderCallsTable(filteredCalls);
+                        });
+
+                        function showAllCalls() {
+                            const tableBody = document.querySelector('#allCallsTable tbody');
+                            tableBody.innerHTML = '';
+                            callsData.forEach((call, index) => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td>${index + 1}</td>
+                                    <td>${call.clientName}</td>
+                                    <td>${call.callDate}</td>
+                                    <td>${call.callNotes}</td>
+                                `;
+                                tableBody.appendChild(row);
+                            });
+                        }
+
+                        document.querySelector('[data-bs-target="#allCallsModal"]').addEventListener('click', showAllCalls);
+
+                        renderCallsTable(callsData);
+                    </script>
+
+                </div>
+                <!-- client calls Content end -->
+
+                <div id="jobcreation" class="content mt-5">
+                    <div id="jobModal" class="modal">
+                        <div class="modal-content">
+                            <span class="modal-close" onclick="closeModal()">&times;</span>
+                            <h2 class="modal-heading">Job List</h2>
+                            <div id="modalBody" class="modal-body"></div>
+                        </div>
+                    </div>
+                    <div style="background-color: white;border-radius: 10px;" class="job-bg p-5">
+                        <div  class="job-form mt-5">
+                            <h2 style="color: red;" class="sachin-heading">Create New Job</h2>
+                            <form id="jobForm">
+                                <div class="rahul-field">
+                                    <label style="color: red;" for="jobTitle" class="virat-label">Job Title:</label>
+                                    <select id="jobTitle" class="dhoni-input">
+                                        <option value="">Select job title</option>
+                                        <option value="HVAC Service">HVAC Service</option>
+                                        <option value="Water Purifier Service">Water Purifier Service</option>
+                                        <option value="Electric Repair">Electric Repair</option>
+                                        <option value="Pest Control">Pest Control</option>
+                                        <option value="Appliance Repair">Appliance Repair</option>
+                                        <option value="Car Washing">Car Washing</option>
+                                        <option value="Tank Cleaning">Tank Cleaning</option>
+                                        <option value="Home Cleaning">Home Cleaning</option>
+                                        <option value="IT Computer Service">IT Computer Service</option>
+                                        <option value="Industrial Maintenance">Industrial Maintenance</option>
+                                        <option value="Medical Equipment">Medical Equipment</option>
+                                        <option value="Lift and Elevator Maintenance">Lift and Elevator Maintenance
+                                        </option>
+                                        <option value="Solar Industry">Solar Industry</option>
+                                    </select>
+                                </div>
+                                <div style="color: red;" class="yuvraj-field">
+                                    <label for="jobDescription" class="kumar-label">Job Description:</label>
+                                    <textarea id="jobDescription" class="sourav-textarea"
+                                        placeholder="Enter job description"></textarea>
+                                </div>
+                                <div class="kapil-field">
+                                    <label style="color: red;" for="jobLocation" class="sourav-label">Job
+                                        Location:</label>
+                                    <input type="text" id="jobLocation" class="sehwag-input"
+                                        placeholder="Enter job location" />
+                                </div>
+                                <button type="button" class="ganguly-button" onclick="createJob()">Create Job</button>
+                                <button type="button" class="ganguly-button" onclick="showJobList()">Show Job
+                                    List</button>
+                            </form>
+                        </div>
+                    </div>
+                    <style>
+                        #jobcreation {
+                            padding: 20px;
+                            font-family: Arial, sans-serif;
+                        }
+
+                        .job-form {
+                            margin-bottom: 20px;
+                        }
+
+                        .sachin-heading {
+                            color: #333;
+                        }
+
+                        .rahul-field,
+                        .yuvraj-field,
+                        .kapil-field {
+                            margin-bottom: 15px;
+                        }
+
+                        .virat-label,
+                        .kumar-label,
+                        .sourav-label {
+                            display: block;
+                            font-weight: bold;
+                            margin-bottom: 5px;
+                        }
+
+                        .dhoni-input {
+                            width: 100%;
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                        }
+
+                        .sourav-textarea {
+                            width: 100%;
+                            height: 100px;
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                        }
+
+                        .ganguly-button {
+                            background-color: red;
+                            color: white;
+                            padding: 10px 15px;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            margin-right: 10px;
+                        }
+
+                        .ganguly-button:hover {
+                            background-color: black;
+                        }
+
+                        .modal {
+                            display: none;
+                            position: fixed;
+                            z-index: 1;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            height: 100%;
+                            overflow: auto;
+                            background-color: rgb(0, 0, 0);
+                            background-color: rgba(0, 0, 0, 0.4);
+                            padding-top: 60px;
+                        }
+
+                        .modal-content {
+                            background-color: #fefefe;
+                            margin: 5% auto;
+                            padding: 20px;
+                            border: 1px solid #888;
+                            width: 80%;
+                            max-width: 800px;
+                        }
+
+                        .modal-close {
+                            color: #aaa;
+                            float: right;
+                            font-size: 28px;
+                            font-weight: bold;
+                        }
+
+                        .modal-close:hover,
+                        .modal-close:focus {
+                            color: black;
+                            text-decoration: none;
+                            cursor: pointer;
+                        }
+
+                        .modal-heading {
+                            color: #333;
+                        }
+
+                        .modal-body {
+                            max-height: 400px;
+                            overflow-y: auto;
+                        }
+                    </style>
+                    <script>
+                        let jobCounter = 1;
+                        const jobList = [];
+
+                        function generateJobId() {
+                            return 'JOB-' + jobCounter++;
+                        }
+
+                        function createJob() {
+                            const jobTitle = document.getElementById('jobTitle').value;
+                            const jobDescription = document.getElementById('jobDescription').value;
+                            const jobLocation = document.getElementById('jobLocation').value;
+
+                            if (jobTitle && jobDescription && jobLocation) {
+                                const jobId = generateJobId();
+                                const job = { id: jobId, title: jobTitle, description: jobDescription, location: jobLocation };
+                                jobList.push(job);
+
+                                jobForm.reset();
+                            } else {
+                                alert('Please fill in all fields');
+                            }
+                        }
+
+                        function showJobList() {
+                            const modal = document.getElementById('jobModal');
+                            const modalBody = document.getElementById('modalBody');
+                            modalBody.innerHTML = '';
+
+                            if (jobList.length === 0) {
+                                modalBody.innerHTML = '<p>No jobs available.</p>';
+                            } else {
+                                const ul = document.createElement('ul');
+                                ul.className = 'kohli-list';
+
+                                jobList.forEach(job => {
+                                    const li = document.createElement('li');
+                                    li.innerHTML = `
+                                        <strong>${job.title}</strong><br>
+                                        <em>${job.location}</em><br>
+                                        <p>${job.description}</p>
+                                        <button onclick="viewJobDetails('${job.id}')">View Details</button>
+                                        <button onclick="editJob('${job.id}')">Edit</button>
+                                        <button onclick="deleteJob('${job.id}')">Delete</button>
+                                    `;
+                                    ul.appendChild(li);
+                                });
+    
+                                modalBody.appendChild(ul);
+                            }
+
+                            modal.style.display = 'block';
+                        }
+
+                        function viewJobDetails(id) {
+                            const job = jobList.find(job => job.id === id);
+                            if (job) {
+                                const modal = document.getElementById('jobModal');
+                                const modalBody = document.getElementById('modalBody');
+                                modalBody.innerHTML = `
+                                    <p><strong>Job ID:</strong> ${job.id}</p>
+                                    <p><strong>Title:</strong> ${job.title}</p>
+                                    <p><strong>Location:</strong> ${job.location}</p>
+                                    <p><strong>Description:</strong> ${job.description}</p>
+                                `;
+                            }
+                        }
+
+                        function closeModal() {
+                            const modal = document.getElementById('jobModal');
+                            modal.style.display = 'none';
+                        }
+
+                        function editJob(id) {
+                            const jobIndex = jobList.findIndex(job => job.id === id);
+                            if (jobIndex !== -1) {
+                                const job = jobList[jobIndex];
+                                document.getElementById('jobTitle').value = job.title;
+                                document.getElementById('jobLocation').value = job.location;
+                                document.getElementById('jobDescription').value = job.description;
+
+                                jobList.splice(jobIndex, 1);
+                            }
+                            closeModal();
+                        }
+
+                        function deleteJob(id) {
+                            const jobIndex = jobList.findIndex(job => job.id === id);
+                            if (jobIndex !== -1) {
+                                jobList.splice(jobIndex, 1);
+                                showJobList();  // Refresh the job list in the modal
+                            }
+                        }
+                    </script>
+
+                </div>
+
+                <!-- Modal for Viewing Job List -->
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showContent(contentId) {
+            // Hide all content sections
+            document.querySelectorAll('.content').forEach((element) => {
+                element.style.display = 'none';
+            });
+
+            // Show the selected content
+            document.getElementById(contentId).style.display = 'block';
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

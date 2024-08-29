@@ -77,7 +77,7 @@
                         </div>
                         <a href="contact.html" class="nav-item nav-link active">Contact Us</a>
                     </div>
-                    <a href="#" style="font-weight: 500;" class="btn crm-btn rounded-pill py-2 px-4 me-4">CRM Service
+                    <a href="" style="font-weight: 500;" class="btn crm-btn rounded-pill py-2 px-4 me-4">CRM Service
                         Hub</a>
                     <style>
                         /* Default button styles */
@@ -139,50 +139,126 @@
                 <div class="row g-5 align-items-center">
                     <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
                         <h2 class="display-5 mb-2">Our Contact Form</h2>
-                        <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a style="color: blue;" class=" fw-bold" href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                        <form>
+                        <p class="mb-4">Efficiently manage your electrical appliance service business with our all-in-one CRM platform. Whether you're providing repair, installation, or maintenance services, our CRM helps streamline your operations—from scheduling service appointments and tracking customer histories to managing technician dispatch and automating follow-ups. <a style="color: blue;" class=" fw-bold" href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
+                        <form id="contactForm">
                             <div class="row g-3">
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                                         <label for="name">Your Name</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
                                         <label for="email">Your Email</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="phone" class="form-control" id="phone" placeholder="Phone">
+                                        <input type="text" class="form-control" id="phone" name="phone" placeholder="Phone">
                                         <label for="phone">Your Phone</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-xl-6">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="project" placeholder="Project">
+                                        <input type="text" class="form-control" id="project" name="project" placeholder="Project">
                                         <label for="project">Your Project</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
                                         <label for="subject">Subject</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
                                     <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 160px"></textarea>
+                                        <textarea class="form-control" placeholder="Leave a message here" id="message" name="message" style="height: 160px" required></textarea>
                                         <label for="message">Message</label>
                                     </div>
                                 </div>
                                 <div class="col-12">
-                                    <button style="border: none;" class="btn btn-primary w-100 py-3">Send Message</button>
+                                    <button type="submit" class="btn btn-primary w-100 py-3">Send Message</button>
                                 </div>
                             </div>
                         </form>
+                        <!-- Include the EmailJS script -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function () {
+        emailjs.init("3j3GbHEZKnvbJqI3S");
+    })();
+</script>
+<script>
+    // Function to handle form submission
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+        event.preventDefault(); // Prevent default form submission
+        sendMessage(); // Call the sendMessage function
+        sendEmail(); // Call the sendEmail function
+    });
+
+    // Function to open WhatsApp with a pre-filled message
+    function sendMessage() {
+        var phonenumber = "+8438438413"; // Your WhatsApp phone number
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var project = document.getElementById("project").value;
+        var subject = document.getElementById("subject").value;
+        var message = document.getElementById("message").value;
+
+        var url = "https://wa.me/" + phonenumber + "?text=" +
+            "Name: " + name + "%0a" +
+            "Email: " + email + "%0a" +
+            "Phone: " + phone + "%0a" +
+            "Project: " + project + "%0a" +
+            "Subject: " + subject + "%0a" +
+            "Message: " + message + "%0a" +
+            "This message is sent via the contact form on our website.";
+
+        window.open(url, '_blank').focus();
+    }
+
+    // Function to send email using EmailJS
+    function sendEmail() {
+        var service = document.getElementById("subject").value; // Adjust if needed
+        var location = document.getElementById("project").value; // Adjust if needed
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var phone = document.getElementById("phone").value;
+        var message = document.getElementById("message").value;
+
+        var templateParams = {
+            service: service,
+            location: location,
+            name: name,
+            email: email,
+            phone: phone,
+            message: message,
+        };
+
+        emailjs
+            .send("service_ixk69ji", "template_0m3ieaj", templateParams)
+            .then(function (response) {
+                console.log("SUCCESS!", response.status, response.text);
+                window.alert("Sent successfully!");
+            }, function (error) {
+                console.error("FAILED...", error);
+                window.alert("Failed to send. Please try again.");
+            });
+    }
+</script>
+
+                      
+                        
+                        
+                        
+
+                        
+                      
+                        
+
                     </div>
                     <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
                         <div class="d-flex align-items-center mb-4">
@@ -245,24 +321,33 @@
         <div class="row g-5">
             <div class="col-md-6 col-lg-6 col-xl-3">
                 <div class="footer-item d-flex flex-column">
-                    <h4 class="text-dark mb-4">Company</h4>
-                    <a href=""> Why Mailler?</a>
-                    <a href=""> Our Features</a>
-                    <a href=""> Our Portfolio</a>
+                    <h4 class="mb-4 text-dark">Quick Links</h4>
+                    <a href=""> Home</a>
                     <a href=""> About Us</a>
+                    <a href=""> Industries</a>
+                    <a href=""> Contact Us</a>
                     <a href=""> Our Blog & News</a>
-                    <a href=""> Get In Touch</a>
+                    <a href=""> CRM Service Hub</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
+             
+
                 <div class="footer-item d-flex flex-column">
-                    <h4 class="mb-4 text-dark">Quick Links</h4>
-                    <a href=""> About Us</a>
-                    <a href=""> Contact Us</a>
-                    <a href=""> Privacy Policy</a>
-                    <a href=""> Terms & Conditions</a>
-                    <a href=""> Our Blog & News</a>
-                    <a href=""> Our Team</a>
+                    <h4 class="text-dark mb-4">Our Industries</h4>
+                    <a href="hvac.html"> HVAC</a>
+                    <a href="water.html">Water Purifier</a>
+                    <a href="electric.html">Electric Repair</a>
+                    <a href="pest.html">Pest Control</a>
+                    <a href="Appliance.html">Appliance Repair</a>
+                    <a href="carwash.html"> Car Washing</a>
+                    <a href="tankclean.html"> Tank Cleaning</a>
+                    <a href="homeclean.html">Home Cleaning</a>
+                    <a href="itcomputer.html">IT Computer Repair</a>
+                    <a href="industrialmain.html">Industrial Maintenance</a>
+                    <a href="medicalequip.html">Medical Equipment</a>
+                    <a href="lift.html">Lift And Elevator Maintenance</a>
+                    <a href="solar.html">Solar Industry</a>
                 </div>
             </div>
             <div class="col-md-6 col-lg-6 col-xl-3">
@@ -285,10 +370,14 @@
                     <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
                     <div class="d-flex align-items-center">
                         <i style="border: none;" class="fas fa-share fa-2x text-secondary me-2"></i>
-                        <a  style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i style="border: none;" class="fab fa-facebook-f"></i></a>
-                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-twitter"></i></a>
-                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-instagram"></i></a>
-                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i class="fab fa-linkedin-in"></i></a>
+                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i
+                                style="border: none;" class="fab fa-facebook-f"></i></a>
+                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i
+                                class="fab fa-twitter"></i></a>
+                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i
+                                class="fab fa-instagram"></i></a>
+                        <a style="border: none;" class="btn-square btn btn-primary rounded-circle mx-1" href=""><i
+                                class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(120deg, #3498db, #8e44ad);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .login-container {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .login-container input[type="text"], 
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 10px 0;
+            border: none;
+            background: #f1f1f1;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .login-container label {
+            display: flex;
+            align-items: center;
+            margin-top: -10px;
+        }
+
+        .login-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background: #3498db;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .login-container input[type="submit"]:hover {
+            background: #2980b9;
+        }
+        
+        .login-container a {
+            text-decoration: none;
+            color: #3498db;
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 30px;
+            }
+
+            .login-container h1 {
+                font-size: 20px;
+            }
+
+            .login-container input[type="submit"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        <form id="login-form">
+            <input type="text" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <label style="margin-top: 20px; margin-bottom: 20px;">
+                <input type="checkbox" id="show-password"> Show Password
+            </label>
+            <input type="submit" value="Login">
+        </form>
+        <a href="#" id="forgot-password">Forgot Password?</a>
+    </div>
+
+    <!-- Firebase scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js"></script>
+    
+    <!-- Firebase configuration -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-app.js';
+        import { getAuth, signInWithEmailAndPassword, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/9.6.11/firebase-auth.js';
+
+        // Your Firebase configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyAWCjdQa-4HopLTDssnNnam18oOvP3FRYs",
+  authDomain: "test-55b3e.firebaseapp.com",
+  projectId: "test-55b3e",
+  storageBucket: "test-55b3e.appspot.com",
+  messagingSenderId: "784592619877",
+  appId: "1:784592619877:web:331ccf96b3c37694a6f98c"
+};
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Login form submission handler
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    // Logged in
+                    const user = userCredential.user;
+                    window.location.href = 'test4.html'; // Redirect to index.html on successful login
+                })
+                .catch((error) => {
+                    console.error('Error:', error.message);
+                    alert('Login failed: ' + error.message);
+                });
+        });
+        
+        // Handle forgot password link
+        document.getElementById('forgot-password').addEventListener('click', function(event) {
+            event.preventDefault();
+            const email = prompt('Enter your email to reset password:');
+            
+            if (email) {
+                sendPasswordResetEmail(auth, email)
+                    .then(() => {
+                        alert('Password reset email sent!');
+                    })
+                    .catch((error) => {
+                        console.error('Error:', error.message);
+                        alert('Error sending password reset email: ' + error.message);
+                    });
+            }
+        });
+
+        // Toggle password visibility
+        document.getElementById('show-password').addEventListener('change', function() {
+            const passwordField = document.getElementById('password');
+            if (this.checked) {
+                passwordField.type = 'text';
+            } else {
+                passwordField.type = 'password';
+            }
+        });
+    </script>
+</body>
+</html>
