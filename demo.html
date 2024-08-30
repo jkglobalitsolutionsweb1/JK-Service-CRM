@@ -39,19 +39,29 @@
                         onclick="showContent('jobcreation')"> <span style="font-weight: 700;">Job Creation</span>
                     </button>
                 </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('jobscheduling')"> <span style="font-weight: 700;">Job Scheduling</span>
+                    </button>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('invoices')"> <span style="font-weight: 700;">Invoices</span>
+                    </button>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('payments')"> <span style="font-weight: 700;">Payments</span>
+                    </button>
+                </div>
+                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
+                    <button style="border: none; outline: none;background-color: white;" class=" btn-block mt-2"
+                        onclick="showContent('reconsilation')"> <span style="font-weight: 700;">Reconsilation</span>
+                    </button>
+                </div>
 
-                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
-                    <h6>Job Scheduling</h6>
-                </div>
-                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
-                    <h6>Invoices</h6>
-                </div>
-                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
-                    <h6>Payments</h6>
-                </div>
-                <div style="background-color: white; border-radius: 10px;" class="box p-3 mt-3 mb-4">
-                    <h6>Reconsilation</h6>
-                </div>
+                
+            
 
                 <div style="background-color: white; border-radius: 10px; margin-top: 150px;" class="box p-3  mb-4">
                     <a style="text-decoration: none; color: black;" href="index.html">
@@ -279,29 +289,15 @@
                 </div>
                 <!-- dashboard Content end -->
                 <!-- client calls Content start -->
+              
+              <main>
                 <div id="clientCalls" class="content">
-                    <style>
-                        .page-title {
-                            margin-top: 20px;
-                            margin-bottom: 20px;
-                        }
-
-                        .form-section,
-                        .table-section,
-                        .update-form-section {
-                            margin-bottom: 20px;
-                        }
-
-                        .hidden {
-                            display: none;
-                        }
-                    </style>
                     <div class="container">
                         <div class="page-title mt-5">
                             <h1 class="fw-bolder" style="color: white;">Client Calls</h1>
                         </div>
-
-                        <div style="background-color: white;border-radius: 10px;" class="form-section p-4">
+        
+                        <div style="background-color: white; border-radius: 10px;" class="form-section p-4">
                             <h4 class="fw-bolder" style="color: black;">Add New Call</h4>
                             <form id="addCallForm">
                                 <div class="mb-3">
@@ -316,21 +312,24 @@
                                     <label style="color: black;" for="callNotes" class="form-label">Call Notes</label>
                                     <textarea class="form-control" id="callNotes" rows="3" required></textarea>
                                 </div>
-                                <button style="background-color: red;border: none;" type="submit"
-                                    class="btn btn-primary">Add Call</button>
+                                <button style="background-color: red; border: none;" type="submit" class="btn btn-primary">Add Call</button>
                             </form>
                         </div>
-
+        
                         <!-- Search/Filter Calls -->
                         <div style="background-color: white;" class="mb-3 p-4 rounded">
                             <h2 class="fw-bolder">Search/Filter Calls</h2>
-                            <input type="text" class="form-control" id="searchInput"
-                                placeholder="Search by client name or date">
+                            <input type="text" class="form-control" id="searchInput" placeholder="Search by client name or date">
                         </div>
-
+        
                         <!-- Calls Table -->
-                        <div style="background-color: white;" class="table-section p-4 rounded">
-                            <h2 class="fw-bolder">Call Records</h2>
+                        <div class="table-section p-4 rounded" style="background-color: white;">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h2 class="fw-bolder">Call Records</h2>
+                                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#fullScreenModal">
+                                    Maximize
+                                </button>
+                            </div>
                             <table class="table table-striped" id="callsTable">
                                 <thead>
                                     <tr>
@@ -345,34 +344,57 @@
                                     <!-- Dynamic rows will be added here -->
                                 </tbody>
                             </table>
-                            <button style="background-color: red; color: white;" class="btn  mt-3"
-                                data-bs-toggle="modal" data-bs-target="#allCallsModal">View All Calls</button>
                         </div>
-
+        
+                        <!-- Full-Screen Modal -->
+                        <div class="modal fade " id="fullScreenModal" tabindex="-1" aria-labelledby="fullScreenModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="fullScreenModalLabel">Full Screen Call Records</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table table-striped" id="fullScreenCallsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>Client Name</th>
+                                                    <th>Call Date</th>
+                                                    <th>Call Notes</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- Dynamic rows will be added here -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
                         <!-- Add Call Modal -->
-                        <div class="modal fade" id="addCallModal" tabindex="-1" aria-labelledby="addCallModalLabel"
-                            aria-hidden="true">
+                        <div class="modal fade" id="addCallModal" tabindex="-1" aria-labelledby="addCallModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="addCallModalLabel">Add New Call</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="addCallForm">
+                                        <form id="addCallModalForm">
                                             <div class="mb-3">
-                                                <label for="clientName" class="form-label">Client Name</label>
-                                                <input type="text" class="form-control" id="clientName" required>
+                                                <label for="modalClientName" class="form-label">Client Name</label>
+                                                <input type="text" class="form-control" id="modalClientName" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="callDate" class="form-label">Call Date</label>
-                                                <input type="date" class="form-control" id="callDate" required>
+                                                <label for="modalCallDate" class="form-label">Call Date</label>
+                                                <input type="date" class="form-control" id="modalCallDate" required>
                                             </div>
                                             <div class="mb-3">
-                                                <label for="callNotes" class="form-label">Call Notes</label>
-                                                <textarea class="form-control" id="callNotes" rows="3"
-                                                    required></textarea>
+                                                <label for="modalCallNotes" class="form-label">Call Notes</label>
+                                                <textarea class="form-control" id="modalCallNotes" rows="3" required></textarea>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Add Call</button>
                                         </form>
@@ -380,374 +402,463 @@
                                 </div>
                             </div>
                         </div>
-
-                  
-                      
+        
+                        <!-- Update Call Modal -->
+                        <div class="modal fade" id="updateCallModal" tabindex="-1" aria-labelledby="updateCallModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="updateCallModalLabel">Update Call</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="updateCallForm">
+                                            <input type="hidden" id="updateCallId">
+                                            <div class="mb-3">
+                                                <label for="updateClientName" class="form-label">Client Name</label>
+                                                <input type="text" class="form-control" id="updateClientName" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="updateCallDate" class="form-label">Call Date</label>
+                                                <input type="date" class="form-control" id="updateCallDate" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="updateCallNotes" class="form-label">Call Notes</label>
+                                                <textarea class="form-control" id="updateCallNotes" rows="3" required></textarea>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Update Call</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-
-                    <!-- Bootstrap Bundle with Popper -->
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-                    <script>
-                        let callsData = [
-                            { id: 1, clientName: 'John Doe', callDate: '2024-08-25', callNotes: 'Discussed project details' },
-                            { id: 2, clientName: 'Jane Smith', callDate: '2024-08-26', callNotes: 'Follow-up on contract' },
-                            { id: 3, clientName: 'Alice Johnson', callDate: '2024-08-27', callNotes: 'Initial consultation' },
-                            { id: 4, clientName: 'Bob Brown', callDate: '2024-08-28', callNotes: 'Project feedback' }
-                        ];
-
-                        function renderCallsTable(data) {
-                            const tableBody = document.querySelector('#callsTable tbody');
-                            tableBody.innerHTML = '';
-                            // Show only the first two records
-                            const recordsToShow = data.slice(0, 2);
-                            recordsToShow.forEach((call, index) => {
-                                const row = document.createElement('tr');
-                                row.innerHTML = `
-                                    <td>${index + 1}</td>
-                                    <td>${call.clientName}</td>
-                                    <td>${call.callDate}</td>
-                                    <td>${call.callNotes}</td>
-                                    <td>
-                                        <button class="btn btn-warning btn-sm" onclick="editCall(${call.id})">Edit</button>
-                                        <button class="btn btn-danger btn-sm" onclick="deleteCall(${call.id})">Delete</button>
-                                    </td>
-                                `;
-                                tableBody.appendChild(row);
-                            });
+                
+                <!-- Bootstrap JavaScript Bundle (with Popper) -->
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            <script>
+                let callsData = [
+                    { id: 1, clientName: 'John Doe', callDate: '2024-08-25', callNotes: 'Discussed project details' },
+                    { id: 2, clientName: 'Jane Smith', callDate: '2024-08-26', callNotes: 'Follow-up on contract' },
+                    { id: 3, clientName: 'Alice Johnson', callDate: '2024-08-27', callNotes: 'Initial consultation' },
+                    { id: 4, clientName: 'Bob Brown', callDate: '2024-08-28', callNotes: 'Project feedback' }
+                ];
+        
+                function renderCallsTable(data, tableId) {
+                    const tableBody = document.querySelector(`${tableId} tbody`);
+                    tableBody.innerHTML = '';
+                    data.forEach((call, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${index + 1}</td>
+                            <td>${call.clientName}</td>
+                            <td>${call.callDate}</td>
+                            <td>${call.callNotes}</td>
+                            <td>
+                                <button class="btn btn-warning btn-sm" onclick="editCall(${call.id})">Edit</button>
+                                <button class="btn btn-danger btn-sm" onclick="deleteCall(${call.id})">Delete</button>
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+        
+                function renderBothTables() {
+                    renderCallsTable(callsData, '#callsTable');
+                    renderCallsTable(callsData, '#fullScreenCallsTable');
+                }
+        
+                document.getElementById('addCallForm').addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const newCall = {
+                        id: callsData.length + 1,
+                        clientName: document.getElementById('clientName').value,
+                        callDate: document.getElementById('callDate').value,
+                        callNotes: document.getElementById('callNotes').value
+                    };
+                    callsData.push(newCall);
+                    renderBothTables(); // Update both tables with the new data
+                    new bootstrap.Modal(document.getElementById('addCallModal')).hide();
+                    this.reset();
+                });
+        
+                document.getElementById('addCallModalForm').addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const newCall = {
+                        id: callsData.length + 1,
+                        clientName: document.getElementById('modalClientName').value,
+                        callDate: document.getElementById('modalCallDate').value,
+                        callNotes: document.getElementById('modalCallNotes').value
+                    };
+                    callsData.push(newCall);
+                    renderBothTables(); // Update both tables with the new data
+                    new bootstrap.Modal(document.getElementById('addCallModal')).hide();
+                    this.reset();
+                });
+        
+                function editCall(id) {
+                    const call = callsData.find(call => call.id === id);
+                    if (call) {
+                        document.getElementById('updateCallId').value = call.id;
+                        document.getElementById('updateClientName').value = call.clientName;
+                        document.getElementById('updateCallDate').value = call.callDate;
+                        document.getElementById('updateCallNotes').value = call.callNotes;
+                        new bootstrap.Modal(document.getElementById('updateCallModal')).show();
+                    }
+                }
+        
+                document.getElementById('updateCallForm').addEventListener('submit', function (event) {
+                    event.preventDefault();
+                    const id = parseInt(document.getElementById('updateCallId').value);
+                    const updatedCall = {
+                        id: id,
+                        clientName: document.getElementById('updateClientName').value,
+                        callDate: document.getElementById('updateCallDate').value,
+                        callNotes: document.getElementById('updateCallNotes').value
+                    };
+                    const index = callsData.findIndex(call => call.id === id);
+                    if (index > -1) {
+                        callsData[index] = updatedCall;
+                        renderBothTables(); // Update both tables with the new data
+                        new bootstrap.Modal(document.getElementById('updateCallModal')).hide();
+                    }
+                });
+        
+                function deleteCall(id) {
+                    if (confirm('Are you sure you want to delete this call?')) {
+                        const index = callsData.findIndex(call => call.id === id);
+                        if (index > -1) {
+                            callsData.splice(index, 1);
+                            renderBothTables(); // Update both tables with the new data
                         }
-
-                        document.getElementById('addCallForm').addEventListener('submit', function (event) {
-                            event.preventDefault();
-                            const newCall = {
-                                id: callsData.length + 1,
-                                clientName: document.getElementById('clientName').value,
-                                callDate: document.getElementById('callDate').value,
-                                callNotes: document.getElementById('callNotes').value
-                            };
-                            callsData.push(newCall);
-                            renderCallsTable(callsData);
-                            new bootstrap.Modal(document.getElementById('addCallModal')).hide();
-                            this.reset();
-                        });
-
-                        function editCall(id) {
-                            const call = callsData.find(call => call.id === id);
-                            if (call) {
-                                document.getElementById('updateCallId').value = call.id;
-                                document.getElementById('updateClientName').value = call.clientName;
-                                document.getElementById('updateCallDate').value = call.callDate;
-                                document.getElementById('updateCallNotes').value = call.callNotes;
-                                new bootstrap.Modal(document.getElementById('updateCallModal')).show();
-                            }
-                        }
-
-                        document.getElementById('updateCallForm').addEventListener('submit', function (event) {
-                            event.preventDefault();
-                            const id = parseInt(document.getElementById('updateCallId').value);
-                            const updatedCall = {
-                                id: id,
-                                clientName: document.getElementById('updateClientName').value,
-                                callDate: document.getElementById('updateCallDate').value,
-                                callNotes: document.getElementById('updateCallNotes').value
-                            };
-                            const index = callsData.findIndex(call => call.id === id);
-                            if (index > -1) {
-                                callsData[index] = updatedCall;
-                                renderCallsTable(callsData);
-                                new bootstrap.Modal(document.getElementById('updateCallModal')).hide();
-                            }
-                        });
-
-                        function deleteCall(id) {
-                            if (confirm('Are you sure you want to delete this call?')) {
-                                const index = callsData.findIndex(call => call.id === id);
-                                if (index > -1) {
-                                    callsData.splice(index, 1);
-                                    renderCallsTable(callsData);
-                                }
-                            }
-                        }
-
-                        document.getElementById('searchInput').addEventListener('input', function () {
-                            const query = this.value.toLowerCase();
-                            const filteredCalls = callsData.filter(call =>
-                                call.clientName.toLowerCase().includes(query) ||
-                                call.callDate.includes(query)
-                            );
-                            renderCallsTable(filteredCalls);
-                        });
-
-                        function showAllCalls() {
-                            const tableBody = document.querySelector('#allCallsTable tbody');
-                            tableBody.innerHTML = '';
-                            callsData.forEach((call, index) => {
-                                const row = document.createElement('tr');
-                                row.innerHTML = `
-                                    <td>${index + 1}</td>
-                                    <td>${call.clientName}</td>
-                                    <td>${call.callDate}</td>
-                                    <td>${call.callNotes}</td>
-                                `;
-                                tableBody.appendChild(row);
-                            });
-                        }
-
-                        document.querySelector('[data-bs-target="#allCallsModal"]').addEventListener('click', showAllCalls);
-
-                        renderCallsTable(callsData);
-                    </script>
-
-                </div>
+                    }
+                }
+        
+                document.getElementById('searchInput').addEventListener('input', function () {
+                    const query = this.value.toLowerCase();
+                    const filteredCalls = callsData.filter(call =>
+                        call.clientName.toLowerCase().includes(query) ||
+                        call.callDate.includes(query)
+                    );
+                    renderCallsTable(filteredCalls, '#callsTable');
+                });
+        
+                document.addEventListener('DOMContentLoaded', function () {
+                    renderBothTables();
+                });
+            </script>
+              <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+              <style>
+                  .page-title {
+                      margin-top: 20px;
+                      margin-bottom: 20px;
+                  }
+          
+                  .form-section,
+                  .table-section,
+                  .update-form-section {
+                      margin-bottom: 20px;
+                  }
+          
+                  .hidden {
+                      display: none;
+                  }
+          
+                  /* New styles for update call form */
+                  .update-call-modal .modal-content {
+                      border-radius: 10px;
+                  }
+          
+                  .update-call-modal .modal-header {
+                      background-color: #f8f9fa;
+                  }
+          
+                  .update-call-modal .modal-title {
+                      color: #343a40;
+                  }
+          
+                  .update-call-modal .modal-body {
+                      background-color: #ffffff;
+                  }
+          
+                  .update-call-modal .btn-primary {
+                      background-color: #007bff;
+                      border-color: #007bff;
+                  }
+          
+                  .table-section {
+                      max-height: 300px; /* Adjust as needed */
+                      overflow-y: auto;
+                  }
+              </style>
+                
+            </div>
+            </main>
+        
+            
+            
+                <!-- Bootstrap Bundle with Popper -->
+             
                 <!-- client calls Content end -->
 
-                <div id="jobcreation" class="content mt-5">
-                    <div id="jobModal" class="modal">
-                        <div class="modal-content">
-                            <span class="modal-close" onclick="closeModal()">&times;</span>
-                            <h2 class="modal-heading">Job List</h2>
-                            <div id="modalBody" class="modal-body"></div>
+
+
+
+                <!-- job creation start -->
+                <div id="jobcreation" class="content">
+                    <div class="unique-jobcreation">
+                        <div id="jobModal" class="unique-modal">
+                          <div class="unique-modal-content">
+                            <span class="unique-modal-close" onclick="closeModal()">&times;</span>
+                            <h2 class="unique-modal-heading">Job List</h2>
+                            <div id="modalBody" class="unique-modal-body"></div>
+                          </div>
                         </div>
-                    </div>
-                    <div style="background-color: white;border-radius: 10px;" class="job-bg p-5">
-                        <div  class="job-form mt-5">
-                            <h2 style="color: red;" class="sachin-heading">Create New Job</h2>
+                        <div style="background-color: white; border-radius: 10px;" class="unique-job-bg p-5">
+                          <div class="unique-job-form mt-5">
+                            <h2 class="unique-sachin-heading">Create New Job</h2>
                             <form id="jobForm">
-                                <div class="rahul-field">
-                                    <label style="color: red;" for="jobTitle" class="virat-label">Job Title:</label>
-                                    <select id="jobTitle" class="dhoni-input">
-                                        <option value="">Select job title</option>
-                                        <option value="HVAC Service">HVAC Service</option>
-                                        <option value="Water Purifier Service">Water Purifier Service</option>
-                                        <option value="Electric Repair">Electric Repair</option>
-                                        <option value="Pest Control">Pest Control</option>
-                                        <option value="Appliance Repair">Appliance Repair</option>
-                                        <option value="Car Washing">Car Washing</option>
-                                        <option value="Tank Cleaning">Tank Cleaning</option>
-                                        <option value="Home Cleaning">Home Cleaning</option>
-                                        <option value="IT Computer Service">IT Computer Service</option>
-                                        <option value="Industrial Maintenance">Industrial Maintenance</option>
-                                        <option value="Medical Equipment">Medical Equipment</option>
-                                        <option value="Lift and Elevator Maintenance">Lift and Elevator Maintenance
-                                        </option>
-                                        <option value="Solar Industry">Solar Industry</option>
-                                    </select>
-                                </div>
-                                <div style="color: red;" class="yuvraj-field">
-                                    <label for="jobDescription" class="kumar-label">Job Description:</label>
-                                    <textarea id="jobDescription" class="sourav-textarea"
-                                        placeholder="Enter job description"></textarea>
-                                </div>
-                                <div class="kapil-field">
-                                    <label style="color: red;" for="jobLocation" class="sourav-label">Job
-                                        Location:</label>
-                                    <input type="text" id="jobLocation" class="sehwag-input"
-                                        placeholder="Enter job location" />
-                                </div>
-                                <button type="button" class="ganguly-button" onclick="createJob()">Create Job</button>
-                                <button type="button" class="ganguly-button" onclick="showJobList()">Show Job
-                                    List</button>
+                              <div class="unique-rahul-field">
+                                <label for="jobTitle" class="unique-virat-label">Job Title:</label>
+                                <select id="jobTitle" class="unique-dhoni-input">
+                                  <option value="">Select job title</option>
+                                  <option value="HVAC Service">HVAC Service</option>
+                                  <option value="Water Purifier Service">Water Purifier Service</option>
+                                  <option value="Electric Repair">Electric Repair</option>
+                                  <option value="Pest Control">Pest Control</option>
+                                  <option value="Appliance Repair">Appliance Repair</option>
+                                  <option value="Car Washing">Car Washing</option>
+                                  <option value="Tank Cleaning">Tank Cleaning</option>
+                                  <option value="Home Cleaning">Home Cleaning</option>
+                                  <option value="IT Computer Service">IT Computer Service</option>
+                                  <option value="Industrial Maintenance">Industrial Maintenance</option>
+                                  <option value="Medical Equipment">Medical Equipment</option>
+                                  <option value="Lift and Elevator Maintenance">Lift and Elevator Maintenance</option>
+                                  <option value="Solar Industry">Solar Industry</option>
+                                </select>
+                              </div>
+                              <div class="unique-yuvraj-field">
+                                <label for="jobDescription" class="unique-kumar-label">Job Description:</label>
+                                <textarea id="jobDescription" class="unique-sourav-textarea" placeholder="Enter job description"></textarea>
+                              </div>
+                              <div class="unique-kapil-field">
+                                <label for="jobLocation" class="unique-sourav-label">Job Location:</label>
+                                <input type="text" id="jobLocation" class="unique-sehwag-input" placeholder="Enter job location" />
+                              </div>
+                              <button type="button" class="unique-ganguly-button" onclick="createJob()">Create Job</button>
+                              <button type="button" class="unique-ganguly-button" onclick="showJobList()">Show Job List</button>
                             </form>
+                          </div>
                         </div>
-                    </div>
-                    <style>
-                        #jobcreation {
-                            padding: 20px;
-                            font-family: Arial, sans-serif;
-                        }
-
-                        .job-form {
-                            margin-bottom: 20px;
-                        }
-
-                        .sachin-heading {
-                            color: #333;
-                        }
-
-                        .rahul-field,
-                        .yuvraj-field,
-                        .kapil-field {
-                            margin-bottom: 15px;
-                        }
-
-                        .virat-label,
-                        .kumar-label,
-                        .sourav-label {
-                            display: block;
-                            font-weight: bold;
-                            margin-bottom: 5px;
-                        }
-
-                        .dhoni-input {
-                            width: 100%;
-                            padding: 8px;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                        }
-
-                        .sourav-textarea {
-                            width: 100%;
-                            height: 100px;
-                            padding: 8px;
-                            border: 1px solid #ccc;
-                            border-radius: 4px;
-                        }
-
-                        .ganguly-button {
-                            background-color: red;
-                            color: white;
-                            padding: 10px 15px;
-                            border: none;
-                            border-radius: 4px;
-                            cursor: pointer;
-                            margin-right: 10px;
-                        }
-
-                        .ganguly-button:hover {
-                            background-color: black;
-                        }
-
-                        .modal {
-                            display: none;
-                            position: fixed;
-                            z-index: 1;
-                            left: 0;
-                            top: 0;
-                            width: 100%;
-                            height: 100%;
-                            overflow: auto;
-                            background-color: rgb(0, 0, 0);
-                            background-color: rgba(0, 0, 0, 0.4);
-                            padding-top: 60px;
-                        }
-
-                        .modal-content {
-                            background-color: #fefefe;
-                            margin: 5% auto;
-                            padding: 20px;
-                            border: 1px solid #888;
-                            width: 80%;
-                            max-width: 800px;
-                        }
-
-                        .modal-close {
-                            color: #aaa;
-                            float: right;
-                            font-size: 28px;
-                            font-weight: bold;
-                        }
-
-                        .modal-close:hover,
-                        .modal-close:focus {
-                            color: black;
-                            text-decoration: none;
-                            cursor: pointer;
-                        }
-
-                        .modal-heading {
-                            color: #333;
-                        }
-
-                        .modal-body {
-                            max-height: 400px;
-                            overflow-y: auto;
-                        }
-                    </style>
-                    <script>
+                      </div>
+                    
+                      <script>
                         let jobCounter = 1;
                         const jobList = [];
-
+                    
                         function generateJobId() {
-                            return 'JOB-' + jobCounter++;
+                          return 'JOB-' + jobCounter++;
                         }
-
+                    
                         function createJob() {
-                            const jobTitle = document.getElementById('jobTitle').value;
-                            const jobDescription = document.getElementById('jobDescription').value;
-                            const jobLocation = document.getElementById('jobLocation').value;
-
-                            if (jobTitle && jobDescription && jobLocation) {
-                                const jobId = generateJobId();
-                                const job = { id: jobId, title: jobTitle, description: jobDescription, location: jobLocation };
-                                jobList.push(job);
-
-                                jobForm.reset();
-                            } else {
-                                alert('Please fill in all fields');
-                            }
+                          const jobTitle = document.getElementById('jobTitle').value;
+                          const jobDescription = document.getElementById('jobDescription').value;
+                          const jobLocation = document.getElementById('jobLocation').value;
+                    
+                          if (jobTitle && jobDescription && jobLocation) {
+                            const jobId = generateJobId();
+                            const job = { id: jobId, title: jobTitle, description: jobDescription, location: jobLocation };
+                            jobList.push(job);
+                    
+                            document.getElementById('jobForm').reset();
+                          } else {
+                            alert('Please fill in all fields');
+                          }
                         }
-
+                    
                         function showJobList() {
+                          const modal = document.getElementById('jobModal');
+                          const modalBody = document.getElementById('modalBody');
+                          modalBody.innerHTML = '';
+                    
+                          if (jobList.length === 0) {
+                            modalBody.innerHTML = '<p>No jobs available.</p>';
+                          } else {
+                            const ul = document.createElement('ul');
+                            ul.className = 'unique-kohli-list';
+                    
+                            jobList.forEach(job => {
+                              const li = document.createElement('li');
+                              li.innerHTML = `
+                                <strong>${job.title}</strong><br>
+                                <em>${job.location}</em><br>
+                                <p>${job.description}</p>
+                                <button onclick="viewJobDetails('${job.id}')">View Details</button>
+                                <button onclick="editJob('${job.id}')">Edit</button>
+                                <button onclick="deleteJob('${job.id}')">Delete</button>
+                              `;
+                              ul.appendChild(li);
+                            });
+                    
+                            modalBody.appendChild(ul);
+                          }
+                    
+                          modal.style.display = 'block';
+                        }
+                    
+                        function viewJobDetails(id) {
+                          const job = jobList.find(job => job.id === id);
+                          if (job) {
                             const modal = document.getElementById('jobModal');
                             const modalBody = document.getElementById('modalBody');
-                            modalBody.innerHTML = '';
-
-                            if (jobList.length === 0) {
-                                modalBody.innerHTML = '<p>No jobs available.</p>';
-                            } else {
-                                const ul = document.createElement('ul');
-                                ul.className = 'kohli-list';
-
-                                jobList.forEach(job => {
-                                    const li = document.createElement('li');
-                                    li.innerHTML = `
-                                        <strong>${job.title}</strong><br>
-                                        <em>${job.location}</em><br>
-                                        <p>${job.description}</p>
-                                        <button onclick="viewJobDetails('${job.id}')">View Details</button>
-                                        <button onclick="editJob('${job.id}')">Edit</button>
-                                        <button onclick="deleteJob('${job.id}')">Delete</button>
-                                    `;
-                                    ul.appendChild(li);
-                                });
-    
-                                modalBody.appendChild(ul);
-                            }
-
-                            modal.style.display = 'block';
+                            modalBody.innerHTML = `
+                              <p><strong>Job ID:</strong> ${job.id}</p>
+                              <p><strong>Title:</strong> ${job.title}</p>
+                              <p><strong>Location:</strong> ${job.location}</p>
+                              <p><strong>Description:</strong> ${job.description}</p>
+                            `;
+                          }
                         }
-
-                        function viewJobDetails(id) {
-                            const job = jobList.find(job => job.id === id);
-                            if (job) {
-                                const modal = document.getElementById('jobModal');
-                                const modalBody = document.getElementById('modalBody');
-                                modalBody.innerHTML = `
-                                    <p><strong>Job ID:</strong> ${job.id}</p>
-                                    <p><strong>Title:</strong> ${job.title}</p>
-                                    <p><strong>Location:</strong> ${job.location}</p>
-                                    <p><strong>Description:</strong> ${job.description}</p>
-                                `;
-                            }
-                        }
-
+                    
                         function closeModal() {
-                            const modal = document.getElementById('jobModal');
-                            modal.style.display = 'none';
+                          const modal = document.getElementById('jobModal');
+                          modal.style.display = 'none';
                         }
-
+                    
                         function editJob(id) {
-                            const jobIndex = jobList.findIndex(job => job.id === id);
-                            if (jobIndex !== -1) {
-                                const job = jobList[jobIndex];
-                                document.getElementById('jobTitle').value = job.title;
-                                document.getElementById('jobLocation').value = job.location;
-                                document.getElementById('jobDescription').value = job.description;
-
-                                jobList.splice(jobIndex, 1);
-                            }
-                            closeModal();
+                          const jobIndex = jobList.findIndex(job => job.id === id);
+                          if (jobIndex !== -1) {
+                            const job = jobList[jobIndex];
+                            document.getElementById('jobTitle').value = job.title;
+                            document.getElementById('jobLocation').value = job.location;
+                            document.getElementById('jobDescription').value = job.description;
+                    
+                            jobList.splice(jobIndex, 1);
+                          }
+                          closeModal();
                         }
-
+                    
                         function deleteJob(id) {
-                            const jobIndex = jobList.findIndex(job => job.id === id);
-                            if (jobIndex !== -1) {
-                                jobList.splice(jobIndex, 1);
-                                showJobList();  // Refresh the job list in the modal
-                            }
+                          const jobIndex = jobList.findIndex(job => job.id === id);
+                          if (jobIndex !== -1) {
+                            jobList.splice(jobIndex, 1);
+                            showJobList();  // Refresh the job list in the modal
+                          }
                         }
-                    </script>
-
+                      </script>
+                      <style>
+                        .unique-jobcreation {
+                          padding: 20px;
+                          font-family: Arial, sans-serif;
+                        }
+                    
+                        .unique-job-form {
+                          margin-bottom: 20px;
+                        }
+                    
+                        .unique-sachin-heading {
+                          color: #333;
+                        }
+                    
+                        .unique-rahul-field,
+                        .unique-yuvraj-field,
+                        .unique-kapil-field {
+                          margin-bottom: 15px;
+                        }
+                    
+                        .unique-virat-label,
+                        .unique-kumar-label,
+                        .unique-sourav-label {
+                          display: block;
+                          font-weight: bold;
+                          margin-bottom: 5px;
+                        }
+                    
+                        .unique-dhoni-input {
+                          width: 100%;
+                          padding: 8px;
+                          border: 1px solid #ccc;
+                          border-radius: 4px;
+                        }
+                    
+                        .unique-sourav-textarea {
+                          width: 100%;
+                          height: 100px;
+                          padding: 8px;
+                          border: 1px solid #ccc;
+                          border-radius: 4px;
+                        }
+                    
+                        .unique-ganguly-button {
+                          background-color: red;
+                          color: white;
+                          padding: 10px 15px;
+                          border: none;
+                          border-radius: 4px;
+                          cursor: pointer;
+                          margin-right: 10px;
+                        }
+                    
+                        .unique-ganguly-button:hover {
+                          background-color: black;
+                        }
+                    
+                        .unique-modal {
+                          display: none;
+                          position: fixed;
+                          z-index: 1;
+                          left: 0;
+                          top: 0;
+                          width: 100%;
+                          height: 100%;
+                          overflow: auto;
+                          background-color: rgb(0, 0, 0);
+                          background-color: rgba(0, 0, 0, 0.4);
+                          padding-top: 60px;
+                        }
+                    
+                        .unique-modal-content {
+                          background-color: #fefefe;
+                          margin: 5% auto;
+                          padding: 20px;
+                          border: 1px solid #888;
+                          width: 80%;
+                          max-width: 800px;
+                        }
+                    
+                        .unique-modal-close {
+                          color: #aaa;
+                          float: right;
+                          font-size: 28px;
+                          font-weight: bold;
+                        }
+                    
+                        .unique-modal-close:hover,
+                        .unique-modal-close:focus {
+                          color: black;
+                          text-decoration: none;
+                          cursor: pointer;
+                        }
+                    
+                        .unique-modal-heading {
+                          color: #333;
+                        }
+                    
+                        .unique-modal-body {
+                          max-height: 400px;
+                          overflow-y: auto;
+                        }
+                      </style>
                 </div>
+                 <!-- job creation end -->
+
+                 <!-- job scheduling start -->
+                 <div id="jobscheduling" class="content">
+                            <h1>ssbjkev</h1>
+                    </div>
+                 <!-- job scheduling end -->
+
+         
 
                 <!-- Modal for Viewing Job List -->
 
